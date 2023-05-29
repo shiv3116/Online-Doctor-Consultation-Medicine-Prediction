@@ -1,0 +1,23 @@
+<div class="container px-4 py-5">
+  <div *ngIf="appointments.length > 0">
+    <div *ngFor="let appointment of appointments" class="app-box">
+      <h2 class="pb-2 border-bottom" *ngIf="member === 'Doctor'">
+        Your Appointment with {{ appointment.getPatientName() }}
+      </h2>
+      <h2 class="pb-2 border-bottom" *ngIf="member === 'User'">
+        Your appointment with Dr. {{ appointment.getDoctorName() }}
+      </h2>
+      <div class="row g-1 py-2 row-cols-1 row-cols-xs-2">
+        <div class="feature-col">
+          <p>
+            <b><em>Appointment Date: </em></b>{{ appointment.getDate() }}
+          </p>
+          <p>
+            <b><em>Concern: </em></b>{{ appointment.getConcern() }}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="appointments.length === 0">No Appointments available.</div>
+</div>

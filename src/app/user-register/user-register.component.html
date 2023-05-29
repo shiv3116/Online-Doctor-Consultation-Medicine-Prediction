@@ -1,0 +1,116 @@
+<form (ngSubmit)="onSubmit()" #userDetails="ngForm">
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+        <div class="card shadow-2-strong" style="border-radius: 1rem">
+          <div class="card-body p-5 text-center">
+            <h3 class="mb-5">Register</h3>
+
+            <div class="form-outline mb-4">
+              <label class="form-label float-start" for="name">Full Name</label>
+              <input
+                type="text"
+                class="form-control form-control-lg fullname"
+                name="name"
+                [(ngModel)]="name"
+                minlength="2"
+                #namee="ngModel"
+                required
+              />
+              <span
+                [hidden]="namee.valid || namee.untouched || namee.errors?.['minlength']"
+                class="float-start error"
+                >Name is required</span
+              >
+              <span
+                *ngIf="namee.errors?.['minlength']"
+                class="float-start error"
+                >Name must be at least 2 characters long.</span
+              >
+            </div>
+            <div class="form-outline mb-4">
+              <label class="form-label float-start" for="email">Email</label>
+              <input
+                type="email"
+                class="form-control form-control-lg Email"
+                name="email"
+                [(ngModel)]="email"
+                required
+                email
+                #eemail="ngModel"
+              />
+              <span
+                class="float-start error"
+                *ngIf="eemail.errors && eemail.touched"
+                >Please enter a valid email address.</span
+              >
+            </div>
+
+            <div class="form-outline mb-4">
+              <label class="form-label float-start" for="password"
+                >Password</label
+              >
+              <input
+                type="password"
+                class="form-control form-control-lg Password"
+                name="password"
+                [(ngModel)]="password"
+                minlength="8"
+                required
+                #pass="ngModel"
+              />
+              <span
+                [hidden]="pass.valid || pass.untouched || pass.errors?.['minlength']"
+                class="float-start error"
+                >Password is required</span
+              >
+              <span *ngIf="pass.errors?.['minlength']" class="float-start error"
+                >Password must be at least 8 characters long.</span
+              >
+            </div>
+            <div class="form-outline mb-4">
+              <label class="form-label float-start" for="password"
+                >Repeat Password</label
+              >
+              <input
+                type="password"
+                class="form-control form-control-lg Password"
+                name="reppassword"
+                [(ngModel)]="reppassword"
+                required
+                #reppass="ngModel"
+              />
+              <span
+                class="float-start error"
+                [hidden]="
+                  reppass.valid ||
+                  reppass.untouched ||
+                  (pass.value != reppass.value && reppass.dirty)
+                "
+                >This field can't be empty.</span
+              >
+              <span
+                class="float-start error"
+                *ngIf="pass.value != reppass.value && reppass.dirty"
+                >Password do not match.</span
+              >
+            </div>
+            <div class="form-check d-flex justify-content-start mb-4">
+              <span>Already have an acount? </span>
+              <a routerLink="/user-login"> Login Here.</a>
+            </div>
+            <button
+              class="btn btn-success btn-lg"
+              type="submit"
+              [disabled]="
+                !userDetails.form.valid || pass.value != reppass.value
+              "
+            >
+              Register
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>

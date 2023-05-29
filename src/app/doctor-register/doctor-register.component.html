@@ -1,0 +1,225 @@
+<form (ngSubmit)="onSubmit()" #doctorDetails="ngForm">
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+        <div class="card shadow-2-strong" style="border-radius: 1rem">
+          <div class="card-body p-5 text-center">
+            <h3 class="mb-5">Register as Doctor</h3>
+
+            <div class="form-outline mb-4">
+              <label class="form-label float-start" for="name">Full Name</label>
+              <input
+                type="text"
+                class="form-control form-control-lg fullname"
+                name="name"
+                [(ngModel)]="name"
+                minlength="2"
+                #namee="ngModel"
+                required
+              />
+              <span
+                [hidden]="namee.valid || namee.untouched || namee.errors?.['minlength']"
+                class="float-start error"
+                >Name is required</span
+              >
+              <span
+                *ngIf="namee.errors?.['minlength']"
+                class="float-start error"
+                >Name must be at least 2 characters long.</span
+              >
+            </div>
+            <div class="form-outline mb-4">
+              <label class="form-label float-start" for="email">Email</label>
+              <input
+                type="email"
+                class="form-control form-control-lg Email"
+                name="email"
+                [(ngModel)]="email"
+                required
+                email
+                #eemail="ngModel"
+              />
+              <span
+                class="float-start error"
+                *ngIf="eemail.errors && eemail.touched"
+                >Please enter a valid email address.</span
+              >
+            </div>
+            <div class="form-outline mb-4">
+              <label class="form-label float-start" for="profilePicture"
+                >Profile Picture</label
+              >
+              <input
+                type="file"
+                class="form-control form-control-lg"
+                name="profilePicture"
+                accept="image/*"
+                (change)="onFileSelected($event)"
+              />
+            </div>
+            <div class="form-outline mb-4">
+              <label class="form-label float-start" for="bio">Short Bio</label>
+              <textarea
+                name="bio"
+                rows="3"
+                class="form-control"
+                [(ngModel)]="shortBio"
+                #sBio="ngModel"
+              ></textarea>
+            </div>
+            <div class="form-outline mb-4">
+              <label for="qualifications" class="form-label float-start"
+                >Qualifications (Select all that apply)</label
+              >
+              <select
+                class="form-select form-control"
+                aria-label="Default select example"
+                name="qual"
+                (ngModelChange)="onChange($event)"
+                [(ngModel)]="qual"
+                required
+                #quali="ngModel"
+              >
+                <option
+                  value="MBBS (Bachelor of Medicine, Bachelor of Surgery)"
+                  selected
+                >
+                  MBBS (Bachelor of Medicine, Bachelor of Surgery)
+                </option>
+                <option value="BDS (Bachelor of Dental Surgery)">
+                  BDS (Bachelor of Dental Surgery)
+                </option>
+                <option
+                  value="BAMS (Bachelor of Ayurvedic Medicine and SurgeryBachelor of
+                Ayurvedic Medicine and Surgery)"
+                >
+                  BAMS (Bachelor of Ayurvedic Medicine and SurgeryBachelor of
+                  Ayurvedic Medicine and Surgery)
+                </option>
+                <option value="BUMS (Bachelor of Unani Medicine and Surgery)">
+                  BUMS (Bachelor of Unani Medicine and Surgery)
+                </option>
+                <option
+                  value="BHMS (Bachelor of Homeopathy Medicine and Surgery)"
+                >
+                  BHMS (Bachelor of Homeopathy Medicine and Surgery)
+                </option>
+                <option
+                  value="BYNS (Bachelor of Yoga and Naturopathy Sciences)"
+                >
+                  BYNS (Bachelor of Yoga and Naturopathy Sciences)
+                </option>
+              </select>
+              <span
+                class="float-start error"
+                [hidden]="quali.valid || quali.untouched"
+                >This field can't be empty.</span
+              >
+              <div class="float-start qf" *ngFor="let qual of qualifications">
+                <p class="skill-show">
+                  {{ qual }}
+                  <span
+                    style="cursor: pointer; float: left"
+                    (click)="delete(qual)"
+                    ><svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      fill="currentColor"
+                      class="bi bi-x"
+                      viewBox="0 0 16 16"
+                    >
+                      <path
+                        d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"
+                      /></svg
+                  ></span>
+                </p>
+              </div>
+            </div>
+            <div class="form-outline mb-4">
+              <label for="expertiseIn" class="form-label float-start"
+                >ExpertiseIn</label
+              >
+              <textarea
+                name="expertiseIn"
+                rows="3"
+                class="form-control"
+                [(ngModel)]="expertiseIn"
+                placeholder="Cough, Fever, etc."
+                required
+                #exptIn="ngModel"
+              ></textarea>
+              <span
+                class="float-start error"
+                [hidden]="exptIn.valid || exptIn.untouched"
+                >This field is required.</span
+              >
+            </div>
+            <div class="form-outline mb-4">
+              <label class="form-label float-start" for="password"
+                >Password</label
+              >
+              <input
+                type="password"
+                class="form-control form-control-lg Password"
+                name="password"
+                [(ngModel)]="password"
+                minlength="8"
+                required
+                #pass="ngModel"
+              />
+              <span
+                [hidden]="pass.valid || pass.untouched || pass.errors?.['minlength']"
+                class="float-start error"
+                >Password is required</span
+              >
+              <span *ngIf="pass.errors?.['minlength']" class="float-start error"
+                >Password must be at least 8 characters long.</span
+              >
+            </div>
+            <div class="form-outline mb-4">
+              <label class="form-label float-start" for="password"
+                >Repeat Password</label
+              >
+              <input
+                type="password"
+                class="form-control form-control-lg Password"
+                name="reppassword"
+                [(ngModel)]="reppassword"
+                required
+                #reppass="ngModel"
+              />
+              <span
+                class="float-start error"
+                [hidden]="
+                  reppass.valid ||
+                  reppass.untouched ||
+                  (pass.value != reppass.value && reppass.dirty)
+                "
+                >This field can't be empty.</span
+              >
+              <span
+                class="float-start error"
+                *ngIf="pass.value != reppass.value && reppass.dirty"
+                >Password do not match.</span
+              >
+            </div>
+            <div class="form-check d-flex justify-content-start mb-4">
+              <span>Already have an acount? </span>
+              <a routerLink="/user-login"> Login Here.</a>
+            </div>
+            <button
+              class="btn btn-success btn-lg"
+              type="submit"
+              [disabled]="
+                !doctorDetails.form.valid || pass.value != reppass.value
+              "
+            >
+              Register
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>

@@ -1,0 +1,53 @@
+<div class="search-box">
+  <label for="search">Search</label>
+  <input
+    type="search"
+    name="searchByName"
+    id="searchByName"
+    placeholder="Find by name"
+    [(ngModel)]="searchKey1"
+    (keyup)="searchByName()"
+  />
+  <input
+    type="search"
+    name="searchByIll"
+    id="searchByIll"
+    placeholder="Find by Illness"
+    [(ngModel)]="searchKey2"
+    (keyup)="searchByIllness()"
+  />
+</div>
+<div class="container py-5" *ngFor="let doctor of doctors">
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="pb-2 border-bottom">Dr. {{ doctor.getName() }}</h2>
+      <div class="my-3">
+        <div class="qualifications">
+          <h3>Qualifications</h3>
+          <ul>
+            <li *ngFor="let qualification of doctor.getQualifications()">
+              {{ qualification }}
+            </li>
+          </ul>
+        </div>
+        <div class="expertise-in">
+          <h3>Expertise In</h3>
+          <ul>
+            <li *ngFor="let expertise of doctor.getExpertiseIn()">{{ expertise }}</li>
+          </ul>
+        </div>
+        <button class="btn btn-primary btn-lg mt-3">Book Appointment</button>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="row">
+        <div class="col-md-4">
+          <img class="img-fluid rounded-circle" src="{{ doctor.getPhotoUrl() }}" alt="{{ doctor.getName() }}">
+        </div>
+        <div class="col-md-8">
+          <p class="bio">{{ doctor.getShortBio() }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

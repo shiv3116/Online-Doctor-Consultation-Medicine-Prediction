@@ -1,0 +1,22 @@
+<div class="chatbot-container">
+  <div class="chat-messages">
+    <div class="message">
+      <p>Enter a symptom/disease you want a recommendation for:</p>
+    </div>
+    <div *ngFor="let message of botMessages" class="message">
+      <p>{{ message }}</p>
+    </div>
+    <div class="message" *ngIf="botMessages.length > 0">
+      <p>Enter another symptom/disease:</p>
+    </div>
+  </div>
+  <div class="user-input">
+    <input
+      type="text"
+      [(ngModel)]="userInput"
+      placeholder="Type your message"
+      class="input-field"
+    />
+    <button (click)="sendUserInput()" class="send-button">Send</button>
+  </div>
+</div>
